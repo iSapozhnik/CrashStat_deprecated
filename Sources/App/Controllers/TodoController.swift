@@ -20,4 +20,8 @@ final class TodoController {
             return todo.delete(on: req)
         }.transform(to: .ok)
     }
+    
+    func customTodos(_ req: Request) throws -> Todo {
+        return Todo(id: 0, title: "Some todo")
+    }
 }
