@@ -32,10 +32,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var databases = DatabasesConfig()
     var config: PostgreSQLDatabaseConfig
     if let url = Environment.get("DATABASE_URL") { // it will read from this URL in production
-        config = (try PostgreSQLDatabaseConfig(url: url))
-    }
-    else { // when environment variable not present, default to local development environment
-        databaseConfig = PostgreSQLDatabaseConfig(hostname: "localhost", port: 5432, username: "isapozhnik", database: "crashstat", password: nil, transport: .cleartext)
+        config = (PostgreSQLDatabaseConfig(url: url))!
+    } else { // when environment variable not present, default to local development environment
+        config = PostgreSQLDatabaseConfig(hostname: "localhost", port: 5432, username: "isapozhnik", database: "crashstat", password: nil, transport: .cleartext)
     }
     let postgres = PostgreSQLDatabase(config: config)
     databases.add(database: postgres, as: .psql)
