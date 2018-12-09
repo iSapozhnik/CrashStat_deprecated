@@ -5,8 +5,10 @@
 //  Created by Ivan Sapozhnik on 11/9/18.
 //
 
-import FluentSQLite
 import Vapor
+import FluentSQLite
+//import Fluent
+import FluentPostgreSQL
 
 /*
  
@@ -41,7 +43,30 @@ enum App: String {
     case dev
 }
 
-final class AppInfo: SQLiteModel {
+//final class Payload: Codable {
+//    var id: Int?
+//
+//    var display_id: Int
+//    var title: String
+//    var method: String
+//    var impact_level: Int
+//    var crashes_count: Int
+//    var impacted_devices_count: Int
+//    var url: String
+//
+//    init(id: Int? = nil, display_id: Int, title: String, method: String, impact_level: Int, crashes_count: Int, impacted_devices_count: Int, url: String) {
+//        self.id = id
+//        self.display_id = display_id
+//        self.title = title
+//        self.method = method
+//        self.impact_level = impact_level
+//        self.crashes_count = crashes_count
+//        self.impacted_devices_count = impacted_devices_count
+//        self.url = url
+//    }
+//}
+
+final class AppInfo: Codable {
     var id: Int?
     
     var issueId: String
@@ -94,5 +119,6 @@ final class Crash: Content {
     }
 }
 
+extension AppInfo: PostgreSQLModel {}
 extension AppInfo: Migration {}
 extension AppInfo: Content {}
