@@ -5,8 +5,10 @@
 //  Created by Ivan Sapozhnik on 11/9/18.
 //
 
-import FluentSQLite
 import Vapor
+import FluentSQLite
+//import Fluent
+import FluentPostgreSQL
 
 /*
  
@@ -41,7 +43,7 @@ enum App: String {
     case dev
 }
 
-final class Payload: SQLiteModel {
+final class Payload: Codable {
     var id: Int?
     
     var display_id: Int
@@ -64,7 +66,7 @@ final class Payload: SQLiteModel {
     }
 }
 
-final class AppInfo: SQLiteModel {
+final class AppInfo: Codable {
     var id: Int?
     
     var event: String
@@ -93,5 +95,6 @@ final class Crash: Content {
     }
 }
 
+extension AppInfo: PostgreSQLModel {}
 extension AppInfo: Migration {}
 extension AppInfo: Content {}
