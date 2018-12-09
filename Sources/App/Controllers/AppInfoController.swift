@@ -45,6 +45,7 @@ final class AppInfoController {
     }
     
     func createIOSCrashDev(_ req: Request) throws -> Future<AppInfo> {
+        print("CRASH!")
         return try req.content.decode(AppInfo.self).flatMap { appInfo in
             appInfo.platform = Platform.ios.rawValue
             appInfo.app = App.dev.rawValue
