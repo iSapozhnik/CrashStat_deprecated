@@ -42,8 +42,17 @@ final class AppInfoController {
     }
     
     func createIOSCrashProd(_ req: Request) throws -> Future<AppInfo> {
-        return try req.content.decode(AppInfo.self).flatMap { appInfo in
-            return appInfo.save(on: req)
+        let decode = try req.content.decode(AppInfo.self)
+        return decode.flatMap { appInfo -> EventLoopFuture<AppInfo> in
+            let query = AppInfo.query(on: req).filter(\AppInfo.issueId == appInfo.issueId).first()
+            return query.flatMap({ existingIssue -> EventLoopFuture<AppInfo> in
+                if let issueId = existingIssue?.id {
+                    appInfo.id = issueId
+                    return appInfo.update(on: req)
+                } else {
+                    return appInfo.save(on: req)
+                }
+            })
         }
     }
     
