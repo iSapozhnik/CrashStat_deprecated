@@ -24,9 +24,9 @@ final class AppInfoController {
             array.forEach({ appInfosArray in
                 appInfosArray.forEach({ info in
                     if info.appPlatform == "ios" {
-                        ios += info.crashes
+                        ios += info.crashes ?? 0
                     } else {
-                        android += info.crashes
+                        android += info.crashes ?? 0
                     }
                 })
             })
