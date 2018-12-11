@@ -76,7 +76,7 @@ final class AppInfo: Codable {
     var appId: String
     var latestAppVersion: String
     var crashPercentage: Int?
-    var crashes: Int
+    var crashes: Int?
     
     init(issueId: String, issueTitle: String, appName: String, appPlatform: String, appId: String, latestAppVersion: String, crashPercentage: Int, crashes: Int) {
         self.issueId = issueId
